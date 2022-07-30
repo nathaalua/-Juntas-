@@ -6,7 +6,7 @@ const controller = require('../controllers/psicologosController')
 
 const router = express.Router()
 
-routes.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.status(200).send({
     title: 'Projeto Final {reprograma} - Não ando só',
     version: '1.0.0',
