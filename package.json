@@ -1,7 +1,7 @@
 {
-  "name": "Não Ando Só",
+  "name": "n-o-ando-s-",
   "version": "1.0.0",
-  "description": "Projeto Não ando só, voltado para mulheres vítimas de violência doméstica que buscam ajuda psicológica",
+  "description": "Resumo: Projeto Não ando só, voltado para mulheres vítimas de violência doméstica que buscam ajuda psicológica",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,14 +15,12 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nathaalua/N-o-ando-s-.git"
+    "url": "https://github.com/nathaalua/N-o-ando-s-/issues"
   },
-  "homepage": "https://github.com/nathaalua/N-o-ando-s-.git",
+  "homepage": "https://github.com/nathaalua/N-o-ando-s-#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.16"
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
   }
 }
