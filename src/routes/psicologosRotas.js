@@ -6,6 +6,12 @@ const controller = require('../controllers/psicologosController')
 
 const router = express.Router()
 
+routes.get('/', (req, res) => {
+  res.status(200).send({
+    title: 'Projeto Final {reprograma} - Não ando só',
+    version: '1.0.0',
+});
+
 router.get('/biblioteca', controller.findAllPsicologos)
 router.get("/payment", controller.findPsicologosByPayment)
 router.get('/:id', controller.findById)
