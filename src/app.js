@@ -1,7 +1,7 @@
 // importar as dependencias
 const express = require('express');
 const cors = require('cors')
-const livrosRotas = require('./routes/psicologosRotas')
+const psicologosRotas = require('./routes/psicologosRotas')
 
 // criar a api
 const app = express();
