@@ -1,5 +1,5 @@
 {
-  "name": "-Juntas-",
+  "name": "Não Ando Só",
   "version": "1.0.0",
   "description": "Projeto Não ando só, voltado para mulheres vítimas de violência doméstica que buscam ajuda psicológica",
   "main": "server.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nathaalua/naoandoso-.git"
+    "url": "git+https://github.com/nathaalua/N-o-ando-s-.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nathaalua/-Juntas-.git"
+    "url": "https://github.com/nathaalua/N-o-ando-s-.git"
   },
-  "homepage": "https://github.com/nathaalua/-Juntas-.git",
+  "homepage": "https://github.com/nathaalua/N-o-ando-s-.git",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1"
