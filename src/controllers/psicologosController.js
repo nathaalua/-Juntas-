@@ -60,12 +60,12 @@ const findById = (req, res) => {
 
 
 const findPsicologosByPayment = (req, res) => {
-    const { payment } = req.params
-   
-    try {
-        const findPsicologos = psicologosModel.find(psicologos => psicologos.payment == payment)
+    const { payment } = req.query
 
-        if (!findPsicologos) throw new Error(`desculpa, não foi possivel encontrar o psicólogo pela forma de pagamento ${id}`)
+    try {
+        const findPsicologos = psicologosModel.filter(psicologos => psicologos.pagamento.toString().toLowerCase().includes(payment.toLowerCase()))
+
+        if (!findPsicologos) throw new Error(`desculpa, não foi possivel encontrar o psicólogo pela forma de pagamento ${req.query}`)
 
         res.status(200).json(findPsicologos)
 
@@ -79,23 +79,24 @@ const findPsicologosByPayment = (req, res) => {
 }
 
 const createPsicologos = (req, res) => {
-    const {  nome, payment } = req.body
+    const {  name, payment } = req.body
 
     try {
 
-        const id = psicologosModel.length
+        const id = psicologosModel.length + 1
 
-        if (nome === null || nome === undefined || nome.trim() == "") {
+        if (name === null || name === undefined || name.trim() == "") {
             throw {
-                
+              statusCode: 409,
+              message: "O nome precisa ser preenchido",
+              details: "Preencha o nome para cadastrar um novo psicólogo."
             }
         }
 
-
-        if (
-            findPsicologosByPayment &&
-            findPsicologosByPayment.nome.toLocaleLowerCase() == nome.toLocaleLowerCase()
-        ) {
+        const findPsicologos = psicologosModel.find(psicologos => psicologos.nome.toLowerCase() === name)
+        console.log(findPsicologos)
+        if (findPsicologos)
+        {
             throw {
                 statusCode: 409,
                 message: "Já existe um psicólogo com essas informações.",
@@ -103,7 +104,7 @@ const createPsicologos = (req, res) => {
             }
         }
 
-        const newPsicologos = { id, nome, payment }
+        const newPsicologos = { id, name, payment }
 
         console.log(newPsicologos)
 
@@ -119,10 +120,74 @@ const createPsicologos = (req, res) => {
     }
 }
 
+const updatePsicologo = (req, res) => {
+  const { id } = req.params
+ 
+  try {
+      const findPsicologos = psicologosModel.find(psicologos => psicologos.id == id)
+
+      if (!findPsicologos) throw new Error(`desculpa, não foi possivel encontrar o psicólogo com o id ${id}`)
+
+      const updatedPsicologo = {
+        id: findPsicologos.id,
+        nome: req.body.nome || findPsicologos.nome,
+        endereço: req.body.endereço || findPsicologos.endereço,
+        numero: req.body.numero || findPsicologos.numero,
+        bairro: req.body.bairro || findPsicologos.bairro,
+        cidade: req.body.cidade || findPsicologos.cidade,
+        telefone: req.body.telefone || findPsicologos.telefone, 
+        pagamento: req.body.pagamento || findPsicologos.pagamento,
+        atendimento: req.body.atendimento || findPsicologos.atendimento,
+        site: req.body.site || findPsicologos.site,
+      }
+      const index = psicologosModel.indexOf(findPsicologos)
+
+      psicologosModel.splice(index, 1, updatedPsicologo)
+
+      const update = psicologosModel.find(psicologos => psicologos.id == id)
+
+      res.status(200).json(update)
+
+  } catch (error) {
+      console.error(error)
+      res.status(500).json({
+          message: "Falha ao atualizar cadastro, por favor tente novamente mais tarde.",
+          details: error.message,
+      })
+  }
+}
+
+const deletePsicologo = (req, res) => {
+  const { id } = req.params
+ 
+  try {
+      const findPsicologos = psicologosModel.find(psicologos => psicologos.id == id)
+
+      if (!findPsicologos) throw new Error(`desculpa, não foi possivel encontrar o psicólogo com o id ${id}`)
+
+      const index = psicologosModel.indexOf(findPsicologos)
+
+      psicologosModel.splice(index, 1)
+ 
+      res.status(200).json({
+        "Psicólogo deletado com sucesso": findPsicologos,
+        "Lista de psicólogos": psicologosModel
+      })
+
+  } catch (error) {
+      console.error(error)
+      res.status(500).json({
+          message: "Falha ao deletar cadastro, por favor tente novamente mais tarde.",
+          details: error.message,
+      })
+  }
+}
+
 module.exports = {
     findAllPsicologos,
     findPsicologosByPayment,
     findById,
-    createPsicologos
+    createPsicologos,
+    updatePsicologo,
+    deletePsicologo
 }
-
